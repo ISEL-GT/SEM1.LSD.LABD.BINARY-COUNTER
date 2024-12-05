@@ -33,7 +33,7 @@ architecture behavioral of counter is
     end component;
 
     -- Component declaration for 2-input MUX
-    component mux_2inputs
+    component mux_2x4
         port (
             a         : in  std_logic_vector(3 downto 0);
             b         : in  std_logic_vector(3 downto 0);
@@ -42,8 +42,8 @@ architecture behavioral of counter is
         );
     end component;
 
-    -- Component declaration for register
-    component reg
+    -- Component declaration for registryister
+    component registry
         port (
             clk       : in  std_logic;
             reset     : in  std_logic;
@@ -56,14 +56,14 @@ architecture behavioral of counter is
 
     -- Signal declarations for internal connections
     signal out_mux_ce        : std_logic_vector(3 downto 0);
-    signal out_reg           : std_logic_vector(3 downto 0);
+    signal out_registry           : std_logic_vector(3 downto 0);
     signal result_full_adder : std_logic_vector(3 downto 0);
     signal data_in          : std_logic_vector(3 downto 0);
 
 begin
 
     -- Instantiate the 2-input MUX to control counting enable (CE)
-    instance_mux_ce : mux_2inputs
+    instance_mux_ce : mux_2x4
         port map (
             a        => "0000",          -- If CE is 0, use "0000"
             b        => "1111",          -- If CE is 1, use "1111"
@@ -74,30 +74,30 @@ begin
     -- Instantiate the full adder to add the counter value with the output of MUX
     instance_full_adder : adder
         port map (
-            a        => out_reg,            -- Current counter value
+            a        => out_registry,            -- Current counter value
             b        => out_mux_ce,        -- Control signal value (CE)
             carry_in => '0',               -- No carry-in for subtraction
             result   => result_full_adder  -- Result of the full adder
         );
 
     -- Instantiate the 2-input MUX for parallel load (PL)
-    instance_mux_pl : mux_2inputs
+    instance_mux_pl : mux_2x4
         port map (
             a        => result_full_adder, -- Adder result (counting)
             b        => c_in,             -- Parallel load value (input)
             selector => pl,               -- Control signal for parallel load
-            result   => data_in           -- Data to load into the register
+            result   => data_in           -- Data to load into the registryister
         );
 
-    -- Instantiate the register to store the counter value
-    instance_reg : reg
+    -- Instantiate the registryister to store the counter value
+    instance_registry : registry
         port map (
-            clk     => clk_in,      -- Clock input for register
+            clk     => clk_in,      -- Clock input for registryister
             reset   => '0',         -- Reset is inactive
             set     => '0',         -- Set is inactive
             d       => data_in,     -- Data to load (either adder result or parallel load)
-            en      => '1',         -- Enable the register
-            q_4bits => out_reg      -- Output of the register (counter value)
+            en      => '1',         -- Enable the registryister
+            q_4bits => out_registry      -- Output of the registryister (counter value)
         );
 
 end behavioral;
