@@ -18,7 +18,7 @@ e com possibilidade de carregamento paralelo. A contagem deverá ser apresentada
 - **Quartus Prime**: [Download here](https://www.intel.com.br/content/www/br/pt/products/details/fpga/development-tools/quartus-prime.html)
 - **USB Blaster Drivers**: [Download here](https://2425moodle.isel.pt/pluginfile.php/1249818/mod_folder/content/0/Material%20de%20apoio/usb-blaster.zip?forcedownload=1)
 - **FPGA Max 10 DE - LITE** [Read More](https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=1021
-- 
+
 ---
 
 ### Contacts
