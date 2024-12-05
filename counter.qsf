@@ -43,14 +43,14 @@ set_global_assignment -name TOP_LEVEL_ENTITY counter
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.1
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "14:50:19  DECEMBER 03, 2024"
 set_global_assignment -name LAST_QUARTUS_VERSION "20.1.1 Lite Edition"
-set_global_assignment -name VHDL_FILE reg.vhd
-set_global_assignment -name VHDL_FILE LABd_tb.vhd
-set_global_assignment -name VHDL_FILE int7seg.vhd
-set_global_assignment -name VHDL_FILE FFD.vhd
-set_global_assignment -name VHDL_FILE decoderHex.vhd
-set_global_assignment -name VHDL_FILE counter.vhd
-set_global_assignment -name VHDL_FILE clkDIV.vhd
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name VHDL_FILE old/reg.vhd
+set_global_assignment -name VHDL_FILE old/LABd_tb.vhd
+set_global_assignment -name VHDL_FILE old/int7seg.vhd
+set_global_assignment -name VHDL_FILE old/FFD.vhd
+set_global_assignment -name VHDL_FILE old/decoderHex.vhd
+set_global_assignment -name VHDL_FILE old/counter.vhd
+set_global_assignment -name VHDL_FILE old/clkDIV.vhd
