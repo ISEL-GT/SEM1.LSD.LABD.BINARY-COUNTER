@@ -5,16 +5,15 @@ use ieee.std_logic_1164.all;
 entity counter is
 
     port (
-        c_in       : in  std_logic_vector(3 downto 0);   -- Input data for the counter down
-        reset      : in  std_logic;                        -- Reset input for the simulation
-        clk_in     : in  std_logic;                        -- Clock signal for generating next states
-        clear      : in  std_logic;                        -- Clear signal, when active disables 7-segment display
-        pl         : in  std_logic;                        -- Parallel load, when active loads data from c_in
-        ce         : in  std_logic;                        -- Count enable, when active, enables counting in descending order
-        count_value : out std_logic_vector(3 downto 0);    -- Output count value
-        int7seg    : out std_logic_vector(7 downto 0);    -- Output to 7-segment display (F..0 order)
-        tc         : out std_logic                         -- Terminal count output
-    );
+		c_in       : in  std_logic_vector(3 downto 0);   -- Input data for the counter down
+      reset      : in  std_logic;                        -- Reset input for the simulation
+      clk_in     : in  std_logic;                        -- Clock signal for generating next states
+      clear      : in  std_logic;                        -- Clear signal, when active disables 7-segment display
+      pl         : in  std_logic;                        -- Parallel load, when active loads data from c_in
+      ce         : in  std_logic;                        -- Count enable, when active, enables counting in descending order
+    
+		q : out std_logic_vector(3 downto 0)
+	);
 
 end counter;
 
@@ -22,7 +21,7 @@ end counter;
 architecture behavioral of counter is
 
     -- Component declaration for full adder
-    component adder
+    component adder_4bits
         port (
             a          : in  std_logic_vector(3 downto 0);
             b          : in  std_logic_vector(3 downto 0);
@@ -56,9 +55,9 @@ architecture behavioral of counter is
 
     -- Signal declarations for internal connections
     signal out_mux_ce        : std_logic_vector(3 downto 0);
-    signal out_registry           : std_logic_vector(3 downto 0);
+    signal out_registry      : std_logic_vector(3 downto 0);
     signal result_full_adder : std_logic_vector(3 downto 0);
-    signal data_in          : std_logic_vector(3 downto 0);
+    signal data_in           : std_logic_vector(3 downto 0);
 
 begin
 
@@ -72,7 +71,7 @@ begin
         );
 
     -- Instantiate the full adder to add the counter value with the output of MUX
-    instance_full_adder : adder
+    instance_full_adder : adder_4bits
         port map (
             a        => out_registry,            -- Current counter value
             b        => out_mux_ce,        -- Control signal value (CE)
@@ -99,5 +98,7 @@ begin
             en      => '1',         -- Enable the registryister
             q_4bits => out_registry      -- Output of the registryister (counter value)
         );
+		  
+		q <= out_registry;	
 
 end behavioral;

@@ -34,7 +34,7 @@ begin
     hex0 <= hex0t when clear = '0' else "11111111";
 
     -- Instantiate the 7-segment decoder
-    u0 : decoder7seg 
+    u0 : decoder7segment
         port map (
             D    => A,
             dout => hex0t
